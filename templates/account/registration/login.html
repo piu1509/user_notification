@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+	Login
+{% endblock title %}
+{% block content %}
+	<div class="row d-flex align-items-center justify-content-center my-5">
+		<div class="col-sm-3 border border-dark p-5">
+			<form method="POST" enctype="multipart/form-data" novalidate>
+				{% csrf_token %}
+				<div class="my-2">
+					<label for="username">Username:</label>
+					<input type="text" id="username" name="{{form.username.name}}" placeholder="username">
+				</div>
+				<div class="my-3">
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="{{form.password.name}}" placeholder="password">
+					<div class="text-center mt-4">
+						<input type="submit" name="submit" value="submit">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}

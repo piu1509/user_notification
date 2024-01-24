@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% load rest_framework %}
+{% block title %}
+Create request
+{% endblock title %}
+{% block content_body %}
+<form action="{% url 'friends:create_request' %}" method="POST">
+    {% csrf_token %}
+    {% render_form serializer %}    
+    <input type="submit" value="Save">
+</form>
+{% endblock content_body %}

@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block title %}
+ Home
+{% endblock title %}
+{% block content_body %}
+  <div class="container my-5">
+    <div class="text-center">
+      {% if user.is_authenticated %}
+        <h2>Welcome!</h2>
+      {% else %}
+        <h5 class="fw-bold">Please <a href="account/login">sign in</a> to continue...</h5>
+      {% endif %}
+    </div>
+  </div>
+{% endblock content_body %}

@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% block title %}
+	Request list
+{% endblock title %}
+{% block content_body %}
+	<div class="container my-5">
+		<div class="row d-flex justify-content-center">
+			{% for request in requests %}
+				<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 border border-light shadow p-4 my-3">
+						<h5 >{{request.user}} sent you a friend request.</h5>
+					<a href="{% url 'friends:request_detail' pk=request.id %}" class="btn btn-outline-primary fw-bold float-end btn-sm mt-2">View</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock content_body %}

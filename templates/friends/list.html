@@ -1,0 +1,76 @@
+{% extends "index.html" %}
+{% block title %}
+	Requests
+{% endblock title %}
+{% block content_body %}
+	<div class="container my-5">
+		<div class="row d-flex justify-content-center">
+			<div class="btn-group" role="group" aria-label="Basic example">
+				<button type="button" class="btn btn-secondary" id="friends">Friends</button>
+				<button type="button" class="btn btn-secondary" id="pending">Pending requests</button>
+				<button type="button" class="btn btn-secondary" id="sent">Sent requests</button>
+			</div>
+		</div>
+		<div class="active" id="block-1">
+		<div class="row d-flex">
+				<div class="col-sm-4 text-center mt-4">
+					{% if friends %}
+				{% for friend in friends %}
+					{% if friend.user == user %}
+						{{friend.friend}}
+						<br>
+					{% else %}
+						{{friend.user}}
+						<br>
+					{% endif %}
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<div id="block-2" style="display:none;">
+		<div class="row d-flex justify-content-center">
+			<div class="col-sm-4 text-center mt-4">
+				{% if pending_requests %}
+				{% for request in pending_requests %}
+					{{request.user}}
+					<br>
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<div id="block-3" style="display:none;">
+		<div class="row d-flex justify-content-end">
+			<div class="col-sm-4 text-center mt-4">
+				{% if sent_requests %}
+				{% for request in sent_requests %}
+					{{request.friend}}
+					<br>
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content_body %}
+{% block script %}
+document.getElementById("friends").addEventListener("click",(e)=>{
+  document.getElementById("block-1").style.display = "block";
+  document.getElementById("block-2").style.display = "none";
+  document.getElementById("block-3").style.display = "none";
+  
+});
+document.getElementById("pending").addEventListener("click",(e)=>{
+  document.getElementById("block-2").style.display = "block";
+  document.getElementById("block-1").style.display = "none";
+  document.getElementById("block-3").style.display = "none";
+  
+});
+document.getElementById("sent").addEventListener("click",(e)=>{
+  document.getElementById("block-3").style.display = "block";
+  document.getElementById("block-1").style.display = "none";
+  document.getElementById("block-2").style.display = "none";
+  
+});
+{% endblock script %}

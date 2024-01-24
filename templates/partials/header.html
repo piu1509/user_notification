@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'dashboard:about_us' %}" class="nav-link">About us</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'dashboard:contact_us' %}" class="nav-link">Contact us</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% if user.is_authenticated %}{% url 'notifications:notification_list' %}{% endif %}" class="nav-link"><i class="fa fa-bell"></i><small>
+            <span class="badge rounded-pill badge-notification bg-danger" id="notification_count">{{count}}</span>
+          </small></a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'friends:friend_requests' %}" class="nav-link">Requests</a>
+        </li>
+      </ul>
+    </div>
+    <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+        <li class="nav-item"><a href="{% url 'friends:list' %}" class="btn btn-link link-dark text-decoration-none ">{{user.username}}</a></li>
+        <li class="nav-item"><a href="{% url 'account:logout' %}" class="btn btn-danger">Logout</a></li>
+      {% else %}
+        <li class="nav-item"><a href="{% url 'account:login' %}" class="btn btn-outline-primary">Login</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+  console.log('hello')
+  const noty = document.getElementById('notification_count');
+  console.log(noty.id)
+  $.ajax({
+    // url: {% url 'notifications:unread_notification_count' %},
+    url: 'http://localhost:8000/notifications/unread_notification_count/',
+    method: "GET",
+    success: function(data){
+    console.log(data)
+    if (data.count>0){
+      console.log(data)
+      console.log(data.count)
+      noty.innerHTML = data.count
+     }
+   },
+    })
+</script>
